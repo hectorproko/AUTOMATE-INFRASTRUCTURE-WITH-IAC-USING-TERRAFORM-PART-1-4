@@ -122,7 +122,7 @@ provider "aws" {
 
 #Resource block will create a VPC.
 resource "aws_vpc" "main" {
-  cidr_block                     = "172.16.0.0/16"
+  cidr_block                     = "10.0.0.0/16"
   enable_dns_support             = "true"
   enable_dns_hostnames           = "true"
   enable_classiclink             = "false"
@@ -242,37 +242,36 @@ provider "aws" {
 Doing the same to `cidr` value in the vpc block, and all the other arguments.  
 
 variable "vpc_cidr" {
-        default = "172.16.0.0/16"
+  default = "10.0.0.0/16"
 }
 
 variable "enable_dns_support" {
-        default = "true"
-    }
+  default = "true"
+}
 
 variable "enable_dns_hostnames" {
-        default ="true" 
-    }
+ default ="true" 
+}
 
 variable "enable_classiclink" {
-        default = "false"
-    }
+  default = "false"
+}
 
 variable "enable_classiclink_dns_support" {
-        default = "false"
-    }
+  default = "false"
+}
 
 provider "aws" {
-    region = var.region
-    }
+  region = var.region
+}
 
 # Create VPC
-    resource "aws_vpc" "main" {
-    cidr_block                     = var.vpc_cidr
-    enable_dns_support             = var.enable_dns_support 
-    enable_dns_hostnames           = var.enable_dns_support
-    enable_classiclink             = var.enable_classiclink
-    enable_classiclink_dns_support = var.enable_classiclink
-
+resource "aws_vpc" "main" {
+  cidr_block                     = var.vpc_cidr
+  enable_dns_support             = var.enable_dns_support 
+  enable_dns_hostnames           = var.enable_dns_support
+  enable_classiclink             = var.enable_classiclink
+  enable_classiclink_dns_support = var.enable_classiclink
 }
 
 ### INTRODUCING VARIABLES.TF &AMP; TERRAFORM.TFVARS
