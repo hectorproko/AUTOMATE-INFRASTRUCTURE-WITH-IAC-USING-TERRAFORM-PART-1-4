@@ -274,5 +274,39 @@ resource "aws_vpc" "main" {
   enable_classiclink_dns_support = var.enable_classiclink
 }
 ```
+	
+**Fixing multiple resource blocks:** We are going to introduce **Loops** & **Data sources**  
+	
+We will explore the use of Terraform’s **Data Sources** to fetch information outside of Terraform *(in this case, from AWS)*  
+
+Let us fetch Availability zones from AWS, and replace the hard coded value in the subnet’s availability_zone section.
+# Get list of availability zones
+``` bash
+data "aws_availability_zones" "available" {
+state = "available"
+}
+```
+
+To make use of this new data resource, we introduce a `count` argument in the subnet block as follow:   
+``` bash
+# Create public subnet1
+resource "aws_subnet" "public" { 
+count                   = 2 #invokes a loop twice
+vpc_id                  = aws_vpc.main.id
+cidr_block              = "10.0.1.0/24" # << Will make second loop fail
+map_public_ip_on_launch = true
+availability_zone       = data.aws_availability_zones.available.names[count.index]
+}
+```
+
+The data resource `data.aws_availability_zones.available.names[count.index]` will return a list object that contains a list of AZs. In this case the `counter` is set to 2 so it will return something like this `["us-east-1a", "us-east-1b"]`  
+
+Another way to look at it:  
+`us-east-1a` = `data.aws_availability_zones.available.names[0]`
+`us-east-1b` = `data.aws_availability_zones.available.names[1]`
+
+If we run Terraform with this configuration, it may succeed for the first time, but by the time it goes into the second loop, it will fail because we still have cidr_block hard coded. The same cidr_block cannot be created twice within the same VPC. So, we have a little more work to do.
+
+
 
 ### INTRODUCING VARIABLES.TF &AMP; TERRAFORM.TFVARS
