@@ -1,9 +1,136 @@
 # AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-4
-Project 16-19 Terraform
+Project 16 Terraform
+
+After you have built AWS infrastructure for 2 websites manually, it is time to automate the process using Terraform.
+Let us start building the same set up with the power of Infrastructure as Code (IaC)
+
+![Markdown Logo](https://raw.githubusercontent.com/hectorproko/AWS-CLOUD-SOLUTION-FOR-2-COMPANY-WEBSITES-USING-A-REVERSE-PROXY-TECHNOLOGY/main/images/tooling_project_15.png)  
 
 ### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM PART 1
+You must have completed Terraform course from the Learning dashboard
 
+Create an IAM user, name it terraform (ensure that the user has only programatic access to your AWS account) and grant this user AdministratorAccess permissions.
+
+IAM > Users > Add users  
+* **Step1**:  
+  * User name: **terraform**  
+  * Select AWS credential type: **Access key - Programmatic access**  
+* **Step2**:  
+  * Create group  
+    * Group name: **terraform**  
+    * Policy name:  `AdministratorAccess`  
+* **Step3**:  
+  * Add tags  
+    * Name **terraform**  
+* **Step4**:  
+    * Review  
+* **Step5**:  
+    * Store Access key ID and Secret access key  
+
+
+**users.png**
+
+
+So I have pip installed
+
+pip install boto3
+
+``` bash
+hector@hector-Laptop:~$ pip list | grep boto3
+boto3                        1.17.112
+hector@hector-Laptop:~$
+```
+
+I will use AWS CLI to authenticate so I make sure I have installed
+``` bash
+hector@hector-Laptop:~$ aws --version
+aws-cli/1.22.71 Python/3.8.10 Linux/5.4.0-109-generic botocore/1.24.16
+hector@hector-Laptop:~$
+```
+
+Going to set authentication configuration on AWS CLI for user terraform  
+[Guide](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html) to configure the Python SDK properly. 
+
+``` bash
+hector@hector-Laptop:~$ aws configure
+AWS Access Key ID [****************HQXB]: xxxxxxxxxxxxxxxxxxxx
+AWS Secret Access Key [****************equ5]: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Default region name [us-east-1]:
+Default output format [None]:
+hector@hector-Laptop:~$
+```
+
+Create an [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) to store Terraform state file.   
+Amazon S3 > Buckets > Create Bucket  
+* General Configuration  
+  * Bucket name: `hector-dev-terraform-bucket`  
+  * AWS Region: `us-east-1 ` 
+* Tags
+  * Name `hector-dev-terraform-bucket`  
+
+
+**buckets.png**
+
+When you have configured authentication and installed `boto3`, make sure you can programmatically access your
+``` bash
+hector@hector-Laptop:~$ python3
+Python 3.8.10 (default, Mar 15 2022, 12:22:08)
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import boto3
+>>> s3 = boto3.resource('s3')
+>>> for bucket in s3.buckets.all():
+...     print(bucket.name)
+...
+hector-dev-terraform-bucket #Returns the name of our bucket`
+>>>
+```
 ### VPC | SUBNETS | SECURITY GROUPS
+
+Update the system packages
+udo apt update
+Install the wget and unzip package to download and extract terraform setup
+
+sudo apt-get install wget unzip -y
+
+Installing **terraform**   
+``` bash
+hector@hector-Laptop:~/Project16-17$ sudo wget https://releases.hashicorp.com/terraform/0.14.7/terraform_0.14.7_linux_amd64.zip #download terraform setup
+hector@hector-Laptop:~/Project16-17$ ls #zip file downloaded
+PBL  README.md  terraform_1.1.9_linux_amd64.zip
+hector@hector-Laptop:~/Project16-17$ sudo unzip terraform_1.1.9_linux_amd64.zip #Extract the downloaded setup using unzip
+Archive:  terraform_1.1.9_linux_amd64.zip
+inflating: terraform
+hector@hector-Laptop:~/Project16-17$ ls #terraform extracted
+PBL  README.md  terraform  terraform_1.1.9_linux_amd64.zip
+hector@hector-Laptop:~/Project16-17$ sudo mv terraform /usr/local/bin/ #moving extracted setup to /bin directory
+hector@hector-Laptop:~/Project16-17$ terraform -v #checking `version (not latest)
+Terraform v1.1.9
+on linux_amd64
+hector@hector-Laptop:~/Project16-17$
+```
+
+Our current directory structure consists of a folder called `PBL` with a file inside `main.tf`   
+
+`main.tf` **AWS** as a provider, and a resource to create a VPC  
+
+``` bash
+#Provider block informs Terraform that we intend to build infrastructure within AWS.
+provider "aws" { 
+  region = "us-east-1"
+}
+
+#Resource block will create a VPC.
+resource "aws_vpc" "main" {
+  cidr_block                     = "172.16.0.0/16"
+  enable_dns_support             = "true"
+  enable_dns_hostnames           = "true"
+  enable_classiclink             = "false"
+  enable_classiclink_dns_support = "false"
+}
+```
+For Terraform to work we need to download the necessary plugin
+
 
 ### FIXING THE PROBLEMS BY CODE REFACTORING
 
