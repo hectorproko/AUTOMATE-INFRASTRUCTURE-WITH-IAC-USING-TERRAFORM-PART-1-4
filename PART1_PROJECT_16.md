@@ -197,6 +197,32 @@ hector@hector-Laptop:~/Project16-17/PBL$
 `terraform.tfstate.lock.info` *(gets deleted immediately)* This is what **Terraform** uses to track, who is running its code against the infrastructure at any point in time. This is very important for teams working on the same Terraform repository at the same time. The lock prevents a user from executing **Terraform** configuration against the same infrastructure when another user is doing the same – it allows to avoid duplicates and conflicts.  
 
 
+Lets create the first 2 **public subnets** by adding below configuration to the `main.tf` file:
+``` bash
+# Declaring 2 resource blocks – one for each of the subnets
+
+# Create public subnets1
+    resource "aws_subnet" "public1" {
+    vpc_id                     = aws_vpc.main.id #<< interpolate the value of the VPC id
+    cidr_block                 = "10.0.1.0/24"
+    map_public_ip_on_launch    = true
+    availability_zone          = "us-east-1"
+}
+# Create public subnet2
+    resource "aws_subnet" "public2" {
+    vpc_id                     = aws_vpc.main.id #<<
+    cidr_block                 = "10.0.3.0/24"
+    map_public_ip_on_launch    = true
+    availability_zone          = "us-east-1"
+}
+```
+
+Once again we run `terraform plan` and `terraform apply`  
+
+**Observations:**  *(Best Practices)*     
+*Hard coded values:* `availability_zone` and `cidr_block` arguments are **hard coded** and our goal should always be to make our work **dynamic** 
+*Multiple Resource Blocks:* We have declared multiple **resource blocks** for each subnet in the code. We need to create a single resource block that can **dynamically** create resources without specifying **multiple blocks**.  
+
 ### FIXING THE PROBLEMS BY CODE REFACTORING
 
 ### INTRODUCING VARIABLES.TF &AMP; TERRAFORM.TFVARS
