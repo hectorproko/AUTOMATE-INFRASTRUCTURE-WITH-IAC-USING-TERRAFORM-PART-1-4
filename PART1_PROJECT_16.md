@@ -240,7 +240,7 @@ provider "aws" {
 ```
 
 Doing the same to `cidr` value in the vpc block, and all the other arguments.  
-
+``` bash
 variable "vpc_cidr" {
   default = "10.0.0.0/16"
 }
@@ -273,5 +273,6 @@ resource "aws_vpc" "main" {
   enable_classiclink             = var.enable_classiclink
   enable_classiclink_dns_support = var.enable_classiclink
 }
+```
 
 ### INTRODUCING VARIABLES.TF &AMP; TERRAFORM.TFVARS
