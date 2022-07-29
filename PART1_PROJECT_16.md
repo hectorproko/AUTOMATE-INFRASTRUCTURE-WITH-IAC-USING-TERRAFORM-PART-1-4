@@ -220,9 +220,59 @@ Lets create the first 2 **public subnets** by adding below configuration to the 
 Once again we run `terraform plan` and `terraform apply`  
 
 **Observations:**  *(Best Practices)*     
-*Hard coded values:* `availability_zone` and `cidr_block` arguments are **hard coded** and our goal should always be to make our work **dynamic** 
-*Multiple Resource Blocks:* We have declared multiple **resource blocks** for each subnet in the code. We need to create a single resource block that can **dynamically** create resources without specifying **multiple blocks**.  
+*Hard coded values:*  
+`availability_zone` and `cidr_block` arguments are **hard coded** and our goal should always be to make our work **dynamic**  
+*Multiple Resource Blocks:*  
+We have declared multiple **resource blocks** for each subnet in the code. We need to create a single resource block that can **dynamically** create resources without specifying **multiple blocks**.  
 
 ### FIXING THE PROBLEMS BY CODE REFACTORING
+
+**Fixing Hard Coded Values:** We will introduce variables, and remove hard coding.  
+Starting with the *provider block*, we declare a **variable** named `region`, give it a default value, and update the provider section by referring to the declared variable.
+``` bash
+variable "region" {
+  default = "us-east-1"
+}
+
+provider "aws" {
+  region = var.region
+}
+```
+
+Doing the same to `cidr` value in the vpc block, and all the other arguments.  
+
+variable "vpc_cidr" {
+        default = "172.16.0.0/16"
+}
+
+variable "enable_dns_support" {
+        default = "true"
+    }
+
+variable "enable_dns_hostnames" {
+        default ="true" 
+    }
+
+variable "enable_classiclink" {
+        default = "false"
+    }
+
+variable "enable_classiclink_dns_support" {
+        default = "false"
+    }
+
+provider "aws" {
+    region = var.region
+    }
+
+# Create VPC
+    resource "aws_vpc" "main" {
+    cidr_block                     = var.vpc_cidr
+    enable_dns_support             = var.enable_dns_support 
+    enable_dns_hostnames           = var.enable_dns_support
+    enable_classiclink             = var.enable_classiclink
+    enable_classiclink_dns_support = var.enable_classiclink
+
+}
 
 ### INTRODUCING VARIABLES.TF &AMP; TERRAFORM.TFVARS
