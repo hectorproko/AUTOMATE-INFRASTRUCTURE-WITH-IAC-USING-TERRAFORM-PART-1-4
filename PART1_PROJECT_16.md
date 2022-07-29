@@ -172,11 +172,29 @@ commands will detect it and remind you to do so if necessary.
 
 
 
+Notice that a new directory has been created: `.terraform` This is where **Terraform** keeps **plugins**. Generally, it is safe to delete this folder. You just have to execute `terraform init` again, to download them.  
 
 ``` bash
 hector@hector-Laptop:~/Project16-17/PBL$ ls -a
 .  ..  main.tf  .terraform  .terraform.lock.hcl
 ```
+*In addition, [.terraform.lock.hcl](https://www.terraform.io/language/files/dependency-lock) Dependency Lock File*
+
+
+Now we create the only resource we just defined `aws_vpc`. Before creating anything we should check to see what **terraform** intends to provision with `terraform plan` 
+If we are happy with changes planned we execute `terraform apply`  
+
+
+Files generated after running **plan** and **apply**  
+``` bash
+hector@hector-Laptop:~/Project16-17/PBL$ ls
+main.tf  terraform.tfstate  terraform.tfstate.backup
+hector@hector-Laptop:~/Project16-17/PBL$
+```
+
+`terraform.tfstate`  is how **Terraform** keeps itself up to date with the exact **state** of the infrastructure. It reads this file to know what already exists, what should be added, or destroyed based on the entire terraform code that is being developed.  
+
+`terraform.tfstate.lock.info` *(gets deleted immediately)* This is what **Terraform** uses to track, who is running its code against the infrastructure at any point in time. This is very important for teams working on the same Terraform repository at the same time. The lock prevents a user from executing **Terraform** configuration against the same infrastructure when another user is doing the same – it allows to avoid duplicates and conflicts.  
 
 
 ### FIXING THE PROBLEMS BY CODE REFACTORING
