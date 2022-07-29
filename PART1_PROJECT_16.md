@@ -129,7 +129,54 @@ resource "aws_vpc" "main" {
   enable_classiclink_dns_support = "false"
 }
 ```
-For Terraform to work we need to download the necessary plugin
+For Terraform to work we need to download the necessary **plugin**. **Plugins** are used by [providers](https://www.terraform.io/language/providers) and [provisioners](https://www.terraform.io/language/resources/provisioners/syntax). So far we only have a **provider** in our `main.tf` file. So, Terraform will just download **plugin** for **AWS** provider.  
+
+We accomplish this with `terraform init`  
+
+We will use this command to initialize the `PBL` directory  
+
+``` bash
+hector@hector-Laptop:~/Project16-17$ cd PBL/
+hector@hector-Laptop:~/Project16-17/PBL$ ls
+main.tf
+hector@hector-Laptop:~/Project16-17/PBL$ terraform init
+```
+<details close>
+<summary>Output</summary>
+
+``` bash
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding latest version of hashicorp/aws...
+- Installing hashicorp/aws v4.13.0...
+- Installed hashicorp/aws v4.13.0 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+``` 
+</details>
+
+
+
+
+
+``` bash
+hector@hector-Laptop:~/Project16-17/PBL$ ls -a
+.  ..  main.tf  .terraform  .terraform.lock.hcl
+```
 
 
 ### FIXING THE PROBLEMS BY CODE REFACTORING
