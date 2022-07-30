@@ -313,9 +313,29 @@ If we run Terraform with this configuration, it may succeed for the first time, 
 We will introduce a function `cidrsubnet()` that works like an algorithm to dynamically create a subnet CIDR per AZ. Regardless of the number of subnets created, it takes care of the cidr value per subnet.  
 
 Its parameters are **cidrsubnet(`prefix`, `newbits`, `netnum`)**  
-	• The prefix parameter must be given in CIDR notation, same as for VPC.
-	• The newbits parameter is the number of additional bits with which to extend the prefix. For example, if given a prefix ending with /16 and a newbits value of 4, the resulting subnet address will have length /20
-	• The netnum parameter is a whole number that can be represented as a binary integer with no more than newbits binary digits, which will be used to populate the additional bits added to the prefix
+* The `prefix` parameter must be given in CIDR notation, same as for VPC.
+* The `newbits` parameter is the number of additional bits with which to extend the prefix. For example, if given a prefix ending with /16 and a newbits value of 4, the resulting subnet address will have length /20
+* The `netnum` parameter is a whole number that can be represented as a binary integer with no more than newbits binary digits, which will be used to populate the additional bits added to the prefix   
+
+Testing **terraform console**  
+``` bash
+hector@hector-Laptop:~$ terraform console
+> cidrsubnet("172.16.0.0/16", 4, 0)
+"172.16.0.0/20"
+>
+```
+We update the configuration  
+``` bash
+# Create public subnet1
+resource "aws_subnet" "public" { 
+    count                   = 2
+    vpc_id                  = aws_vpc.main.id
+    cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+    map_public_ip_on_launch = true
+    availability_zone       = data.aws_availability_zones.available.names[count.index]
+}
+```
+
 
 
 
