@@ -1,5 +1,45 @@
-# AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-4
-Project 16-19 Terraform
+# AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-2/4
+Project 17 Terraform
+
+Best practices Tagging  
+
+**Tagging** helps you manage your resources much more efficiently:
+* Resources are much better organized in ‘virtual’ groups
+* They can be easily filtered and searched from console or programmatically
+* Billing team can easily generate reports and determine how much each part of infrastructure costs how much (by department, by type, by environment, etc.)
+* You can easily determine resources that are not being used and take actions accordingly
+* If there are different teams in the organization using the same account, tagging can help differentiate who owns which resources  
+
+
+Lets add multiple tags as a default set. for example, in out [terraform.tfvars](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/terraform.tfvars) file we can have default tags defined.
+``` bash
+tags = {
+  Enviroment      = "development" 
+  Owner-Email     = "hectore@email.com"
+  Managed-By      = "Terraform"
+  Billing-Account = "1234567890"
+}
+```
+
+Now we can tag all resources using the format below
+``` bash
+tags = merge(
+    var.tags,
+    {
+      Name = "Name of the resource"
+    },
+  )
+```
+
+We need to to declare the variable `tags` in [variables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/variables.tf) using the following format
+``` bash
+variable "tags" {
+  description = "A mapping of tags to assign to all resources."
+  type        = map(string)
+  default     = {}
+}
+```
+Now every time we need to make a change to the **tags**, we can do that in one single place `terraform.tfvars`  
 
 ### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 2
 
