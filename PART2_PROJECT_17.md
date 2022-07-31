@@ -84,8 +84,68 @@ The output should look something like this
 
 
 
+NAT Gateways
+Create 1 NAT Gateways and 1 Elastic IP (EIP) addresses
+Now use similar approach to create the NAT Gateways in a new file called natgateway.tf.
+
+Note: We need to create an Elastic IP for the NAT Gateway, and you can see the use of depends_on to indicate that the Internet Gateway resource must be available before this should be created. Although Terraform does a good job to manage dependencies, but in some cases, it is good to be explicit.
+You can read more on dependencies here
+resource "aws_eip" "nat_eip" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.ig]
+tags = merge(
+    var.tags,
+    {
+      Name = format("%s-EIP", var.name)
+    },
+  )
+}
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = element(aws_subnet.public.*.id, 0)
+  depends_on    = [aws_internet_gateway.ig]
+tags = merge(
+    var.tags,
+    {
+      Name = format("%s-Nat", var.name)
+    },
+  )
+}
 
 
+
+**NAT Gateways**  
+
+Creating 1 **NAT Gateway** and 1 **Elastic IP (EIP)** address in a new file called [natgateway.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/natgateway.tf)  
+
+We need to create an **Elastic IP** for the **NAT Gateway**, and we introduce the use of `depends_on` to indicate that the **Internet Gateway** resource must be available before this should be created.  
+
+`depends_on` [Documentation](https://www.terraform.io/language/meta-arguments/depends_on)  
+
+``` bash
+resource "aws_eip" "nat_eip" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.ig]
+  tags = merge(
+    var.tags,
+    {
+      Name = format("%s-EIP", var.name)
+    },
+  )
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = element(aws_subnet.public.*.id, 0)
+  depends_on    = [aws_internet_gateway.ig]
+  tags = merge(
+    var.tags,
+    {
+      Name = format("%s-Nat", var.name)
+    },
+  )
+}
+```
 
 
 
