@@ -28,8 +28,7 @@ IAM > Users > Add users
     * Store Access key ID and Secret access key  
 
 
-**users.png**
-
+![Markdown Logo](https://raw.githubusercontent.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/main/images/users.png)  
 
 So I have pip installed
 
@@ -69,7 +68,7 @@ Amazon S3 > Buckets > Create Bucket
   * Name `hector-dev-terraform-bucket`  
 
 
-**buckets.png**
+![Markdown Logo](https://raw.githubusercontent.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/main/images/buckets.png)  
 
 When you have configured authentication and installed `boto3`, make sure you can programmatically access your
 ``` bash
