@@ -428,3 +428,29 @@ We will put all **variable declarations** in a separate file and provide non **d
 * Created a new file `variables.tf` where I moved all the **variable declarations**  
 * Created another file `terraform.tfvars` where I **set values** for each of the variables  
 
+<details close>
+<summary>Maint.tf</summary>
+
+``` bash
+# Get list of availability zones
+
+```  
+</details>
+
+<details close>
+<summary>variables.tf</summary>
+
+``` bash
+# Get list of availability zones
+
+```  
+</details>
+
+<details close>
+<summary>terraform.tfvars</summary>
+
+``` bash
+# Get list of availability zones
+
+```  
+</details>
