@@ -336,7 +336,36 @@ resource "aws_subnet" "public" {
 }
 ```
 
+**The final problem to solve is removing hard coded `count` value.**  
+To do this, we can introduce length() function, which basically determines the length of a given list, map, or string.
 
 
+Now, let us fix this.
+
+Declare a variable to store the desired number of public subnets, and set the default value
+``` bash	
+variable "preferred_number_of_public_subnets" {
+  default = 2
+}
+```
+Next, update the count argument with a condition. Terraform needs to check first if there is a desired number of subnets. Otherwise, use the data returned by the length function. See how that is presented below.
+
+``` bash	
+# Create public subnets
+resource "aws_subnet" "public" {
+  count  = var.preferred_number_of_public_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_public_subnets   
+  vpc_id = aws_vpc.main.id
+  cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+  map_public_ip_on_launch = true
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+}
+```
+
+Now lets break it down: `count  = var.preferred_number_of_public_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_public_subnets`  
+
+* The first part `var.preferred_number_of_public_subnets == null` checks if the value of the variable is set to `null` or has some value defined.
+* The second part `?` and `length(data.aws_availability_zones.available.names)` means, if the first part is true, then use this. In other words, if preferred number of public subnets is `null` (Or not known) then set the value to the data returned by `length` function.
+* The third part `:` and `var.preferred_number_of_public_subnets` means, if the first condition is false, i.e preferred number of public subnets is `not null` then set the value to whatever is defined in `var.preferred_number_of_public_subnets`
+	
 
 ### INTRODUCING VARIABLES.TF &AMP; TERRAFORM.TFVARS
