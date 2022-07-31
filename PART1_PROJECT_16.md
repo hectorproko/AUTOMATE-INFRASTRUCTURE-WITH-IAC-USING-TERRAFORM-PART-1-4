@@ -1,4 +1,4 @@
-# AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-4
+# AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1/4
 Project 16 Terraform
 
 After you have built AWS infrastructure for 2 websites manually, it is time to automate the process using Terraform.
@@ -420,3 +420,11 @@ resource "aws_subnet" "public" {
 
 
 ### INTRODUCING VARIABLES.TF &AMP; TERRAFORM.TFVARS
+
+To make our code a lot more readable and better structured instead of having a long list of variables in `main.tf` file I'll move out some parts of the configuration content to other files.
+
+
+We will put all **variable declarations** in a separate file and provide non **default values** to each of them  
+* Created a new file `variables.tf` where I moved all the **variable declarations**  
+* Created another file `terraform.tfvars` where I **set values** for each of the variables  
+
