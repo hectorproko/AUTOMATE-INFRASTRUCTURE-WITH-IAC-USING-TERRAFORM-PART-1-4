@@ -502,7 +502,7 @@ preferred_number_of_public_subnets = 2
 </details>
 
 
-Now the file structure in the PBL folder look like this  
+Now the file structure in the **PBL** folder look like this  
 ``` bash
 hector@hector-Laptop:~/Project16-17/PBL$ tree
 .
