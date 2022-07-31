@@ -41,6 +41,41 @@ variable "tags" {
 ```
 Now every time we need to make a change to the **tags**, we can do that in one single place `terraform.tfvars`  
 
+
+**Internet Gateways & `format()` function**  
+Create an Internet Gateway in a separate Terraform file internet_gateway.tf  
+``` bash
+resource "aws_internet_gateway" "ig" {
+  vpc_id = aws_vpc.main.id
+tags = merge(
+    var.tags,
+    {
+      Name = format("%s-%s!", aws_vpc.main.id,"IG")
+    } 
+  )
+}
+```
+
+
+Did you notice how we have used format() function to dynamically generate a unique name for this resource? The first part of the %s takes the interpolated value of aws_vpc.main.id while the second %s appends a literal string IG and finally an exclamation mark is added in the end.
+If any of the resources being created is either using the count function, or creating multiple resources using a loop, then a key-value pair that needs to be unique must be handled differently.
+
+For example, each of our subnets should have a unique name in the tag section. Without the format() function, we would not be able to see uniqueness. With the format function, each private subnet’s tag will look like this.
+Name = PrvateSubnet-0
+Name = PrvateSubnet-1
+Name = PrvateSubnet-2
+
+Lets try and see that in action.
+  tags = merge(
+    var.tags,
+    {
+      Name = format("PrivateSubnet-%s", count.index)
+    } 
+  )
+
+
+
+
 ### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 2
 
 ### AWS ROUTES
