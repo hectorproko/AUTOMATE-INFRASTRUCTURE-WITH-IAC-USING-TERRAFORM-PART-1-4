@@ -367,7 +367,7 @@ Now lets break it down: `count  = var.preferred_number_of_public_subnets == null
 
   
 <details close>
-<summary>Now the entire configuration should now look like this</summary>
+<summary>Now the entire configuration looks like this</summary>
 
 ``` bash
 # Get list of availability zones
