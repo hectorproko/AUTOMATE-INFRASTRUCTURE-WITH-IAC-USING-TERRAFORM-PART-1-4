@@ -433,7 +433,28 @@ We will put all **variable declarations** in a separate file and provide non **d
 
 ``` bash
 # Get list of availability zones
-
+data "aws_availability_zones" "available" {
+state = "available"
+}
+provider "aws" {
+  region = var.region
+}
+# Create VPC
+resource "aws_vpc" "main" {
+  cidr_block                     = var.vpc_cidr
+  enable_dns_support             = var.enable_dns_support 
+  enable_dns_hostnames           = var.enable_dns_support
+  enable_classiclink             = var.enable_classiclink
+  enable_classiclink_dns_support = var.enable_classiclink
+}
+# Create public subnets
+resource "aws_subnet" "public" {
+  count  = var.preferred_number_of_public_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_public_subnets   
+  vpc_id = aws_vpc.main.id
+  cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+  map_public_ip_on_launch = true
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+}
 ```  
 </details>
 
@@ -441,7 +462,27 @@ We will put all **variable declarations** in a separate file and provide non **d
 <summary>variables.tf</summary>
 
 ``` bash
-# Get list of availability zones
+variable "region" {
+  default = "us-east-1"
+}
+variable "vpc_cidr" {
+  default = "10.0.0.0/16"
+}
+variable "enable_dns_support" {
+  default = "true"
+}
+variable "enable_dns_hostnames" {
+  default ="true" 
+}
+variable "enable_classiclink" {
+  default = "false"
+}
+variable "enable_classiclink_dns_support" {
+  default = "false"
+}
+variable "preferred_number_of_public_subnets" {
+  default = null
+}
 
 ```  
 </details>
@@ -450,7 +491,28 @@ We will put all **variable declarations** in a separate file and provide non **d
 <summary>terraform.tfvars</summary>
 
 ``` bash
-# Get list of availability zones
-
+region = "us-east-1"
+vpc_cidr = "10.0.0.0/16" 
+enable_dns_support = "true" 
+enable_dns_hostnames = "true"  
+enable_classiclink = "false" 
+enable_classiclink_dns_support = "false" 
+preferred_number_of_public_subnets = 2
 ```  
 </details>
+
+
+Now the file structure in the PBL folder look like this  
+``` bash
+hector@hector-Laptop:~/Project16-17/PBL$ tree
+.
+├── main.tf
+├── terraform.tfstate
+├── terraform.tfstate.backup
+├── terraform.tfvars
+└── variables.tf
+
+0 directories, 5 files
+hector@hector-Laptop:~/Project16-17/PBL$
+```
+We run `terraform plan` to ensure everything works  
