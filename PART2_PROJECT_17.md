@@ -212,7 +212,7 @@ Moving on to **Compute and Access Control** configuration automation using Terra
 **AWS Identity and Access Management**  
 
 [**IAM**](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) and [**Roles**](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)  
-We want to pass an IAM role our EC2 instances to give them access to some specific resources, so we need to do the following:  
+We want to pass an **IAM role** to our **EC2 instances** to give them **access** to some specific resources, so we need to do the following:  
 1. Create [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html)  
    
 *Assume Role uses Security Token Service (STS) API that returns a set of temporary security credentials that you can use to access AWS resources that you might not normally have access to. These temporary credentials consist of an access key ID, a secret access key, and a security token. Typically, you use AssumeRole within your account or for cross-account access.*  
@@ -245,7 +245,7 @@ resource "aws_iam_role" "ec2_instance_role" {
 ```
 In this code we are creating **AssumeRole** with **AssumeRole policy**. It grants to an entity, in our case it is an **EC2**, permissions to assume the role.  
 
-2. Create IAM policy for this role  
+2. Create **IAM policy** for this role  
    
 This is where we need to define a required policy (i.e., permissions) according to our requirements. For example, allowing an **IAM role** to perform action **describe** applied to **EC2** instances:  
 ``` bash
@@ -273,7 +273,7 @@ tags = merge(
 }
 ```
 
-3. Attach the Policy to the IAM Role
+3. Attach the **Policy** to the **IAM Role**
 This is where, we will be attaching the policy which we created above, to the role we created in the first step.  
 ``` bash
 resource "aws_iam_role_policy_attachment" "test-attach" {
@@ -281,7 +281,7 @@ resource "aws_iam_role_policy_attachment" "test-attach" {
   policy_arn = aws_iam_policy.policy.arn
 }
 ```
-4. Create an Instance Profile and interpolate the IAM Role  
+4. Create an **Instance Profile** and interpolate the IAM Role  
 ``` bash
 resource "aws_iam_instance_profile" "ip" {
   name = "aws_instance_profile_test"
@@ -291,6 +291,15 @@ resource "aws_iam_instance_profile" "ip" {
 For now we are done with **Identity and Management**  
 
 ### CREATE SECURITY GROUPS
+
+We are going to create all the **security groups** in a single file, then we are going to reference a security group within each resources that needs it  
+
+Terraform Documentation: [Security Group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) and [Security Group Rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule)  
+
+
+
+
+
 
 ### CREATE CERTIFICATE FROM AMAZON CERIFICATE MANAGER
 
