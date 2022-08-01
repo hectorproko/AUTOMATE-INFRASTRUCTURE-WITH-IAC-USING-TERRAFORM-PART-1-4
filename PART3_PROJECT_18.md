@@ -1,7 +1,6 @@
 # AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-3/4
 Project 18 Terraform
-[Link](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART3_PROJECT_18.md#update-terraform-block-to-introduce-backend-and-locking)  
-
+ 
 So far we have developed AWS Infrastructure code using Terraform and tried to run it from our local workstation.  
 Now we will explore alternative Terraform [backends](https://www.terraform.io/language/settings/backends/configuration).  
 
@@ -22,10 +21,10 @@ Another useful option that is supported by **S3** backend is [**State Locking**]
 Here is our plan to Re-initialize Terraform to use S3 backend: (init terraform step)
 * Add S3 and DynamoDB resource blocks before deleting the local state file
 * ###### Update terraform block to introduce backend and locking
-* Re-initialize terraform
-* Delete the local tfstate file and check the one in S3 bucket
-* Add outputs
-* terraform apply  
+* ###### Re-initialize terraform
+* ###### Delete the local tfstate file and check the one in S3 bucket
+* ###### Add outputs
+* ###### terraform apply  
 
 
 
