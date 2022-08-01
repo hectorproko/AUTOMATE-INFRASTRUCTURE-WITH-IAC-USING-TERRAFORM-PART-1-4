@@ -767,11 +767,11 @@ resource "aws_lb_listener_rule" "tooling-listener" {
 ### CREATING AUSTOALING GROUPS
 
 
-This Section we will create the Auto Scaling Group (ASG)
-Now we need to configure our ASG to be able to scale the EC2s out and in depending on the application traffic.
+In this Section we will create the **Auto Scaling Group (ASG)** to be able to scale the **EC2s** out and in depending on the application traffic.
 
-Before we start configuring an ASG, we need to create the launch template and the the AMI needed. For now we are going to use a random AMI from AWS, then in project 19, we will use Packerto create our ami.
-Based on our Architecture we need for Auto Scaling Groups for bastion, nginx, wordpress and tooling, so we will create two files; asg-bastion-nginx.tf will contain Launch Template and Austoscaling froup for Bastion and Nginx, then asg-wordpress-tooling.tf will contain Launch Template and Austoscaling group for wordpress and tooling.
+Before we start configuring an ASG, we need to create the launch template
+
+Based on our Architecture we need **Auto Scaling Groups** for **bastion**, **nginx**, **wordpress** and **tooling**, so we will create two files;   `asg-bastion-nginx.tf` will contain **Launch Template** and **Auto Scaling Group** for **Bastion** and **Nginx**, then `asg-wordpress-tooling.tf` will contain **Launch Template** and **Auto Scaling group** for **wordpress** and **tooling**.
 
 Useful Terraform Documentation, go through this documentation and understand the arguement needed for each resources:
 * [SNS-topic](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic)
@@ -1038,3 +1038,4 @@ resource "aws_autoscaling_attachment" "asg_attachment_tooling" {
 
 
 ### STORAGE AND DATABASE
+
