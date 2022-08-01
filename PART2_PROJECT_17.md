@@ -780,6 +780,10 @@ Useful Terraform Documentation, go through this documentation and understand the
 * [Launch-template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template)
 
 Create `asg-bastion-nginx.tf` and paste all the code snippet below;
+
+<details close>
+<summary>asg-bastion-nginx.tf</summary>
+
 ``` bash
 #Creating SNS Topic for all the Auto Scaling Groups
 resource "aws_sns_topic" "hector-sns" {
@@ -912,8 +916,7 @@ resource "aws_autoscaling_attachment" "asg_attachment_nginx" {
   alb_target_group_arn   = aws_lb_target_group.nginx-tgt.arn
 }
 ```
-
-
+</details>
 
 
 Autoscaling for **wordpress** and **tooling** will be created in a separate file `asg-wordpress-tooling.tf` with the following code  
