@@ -1180,6 +1180,9 @@ resource "aws_db_instance" "HRA-rds" {
 
 Declaring in `variables.tf` variables that we previosly gave reference to
 
+<details close>
+<summary>variables.tf</summary>
+
 ``` bash
 variable "region" {
   type = string
@@ -1239,6 +1242,32 @@ variable "master-password" {
   description = "RDS master password"
 }
 ```
+</details>
+
 
 We need to update `terraform.tfvars`  to declare the **values** for the variables in our `varibales.tf `  
+
+``` bash
+region = "us-east-1"
+vpc_cidr = "10.0.0.0/16"
+enable_dns_support = "true"
+enable_dns_hostnames = "true"
+enable_classiclink = "false"
+enable_classiclink_dns_support = "false"
+preferred_number_of_public_subnets = "2"
+preferred_number_of_private_subnets = "4"
+environment = "production"
+ami = "ami-0b0af3577fe5e3532"
+keypair = "devops"
+# Ensure to change this to your account number
+account_no = "199055125796"
+db-username = "Hector"
+db-password = "Hect0rRodriguez!"
+tags = {
+  Enviroment      = "production" 
+  Owner-Email     = "hectore@email.com"
+  Managed-By      = "Terraform"
+  Billing-Account = "1234567890"
+}
+```
 
