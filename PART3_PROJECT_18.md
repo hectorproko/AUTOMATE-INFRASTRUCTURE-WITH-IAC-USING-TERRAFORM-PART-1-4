@@ -16,7 +16,18 @@ The second problem with storing this file locally is that other engineers will n
 
 To solve this, we will need to configure a backend where the state file can be accessed remotely by other DevOps team members. There are plenty of different standard backends supported by Terraform that we can choose from. Since we are already using AWS – we can choose an [S3 bucket as a backend](https://www.terraform.io/docs/language/settings/backends/s3.html).  
 
-Another useful option that is supported by **S3** backend is [**State Locking**](https://www.terraform.io/docs/language/state/locking.html) *(used to lock your state for all operations that could write state)*. This prevents others from acquiring the lock and potentially corrupting your state. State Locking feature for S3 backend is optional and requires another AWS service – DynamoDB.  
+Another useful option that is supported by **S3** backend is [**State Locking**](https://www.terraform.io/docs/language/state/locking.html) *(used to lock your state for all operations that could write state)*. This prevents others from acquiring the lock and potentially corrupting your state. State Locking feature for S3 backend is optional and requires another AWS service – [DynamoDB](https://aws.amazon.com/dynamodb/).  
+
+
+Here is our plan to Re-initialize Terraform to use S3 backend: (init terraform step)
+* Add S3 and DynamoDB resource blocks before deleting the local state file
+* ###### Update terraform block to introduce backend and locking
+* Re-initialize terraform
+* Delete the local tfstate file and check the one in S3 bucket
+* Add outputs
+* terraform apply  
+
+
 
 
 
