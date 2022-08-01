@@ -916,8 +916,10 @@ resource "aws_autoscaling_attachment" "asg_attachment_nginx" {
 
 
 
-Autoscaling for wordpres and toolibng will be created in a seperate file
-Create `asg-wordpress-tooling.tf` and paste the following code  
+Autoscaling for **wordpress** and **tooling** will be created in a separate file `asg-wordpress-tooling.tf` with the following code  
+
+<details close>
+<summary>asg-wordpress-tooling.tf</summary>
 
 ``` bash
 # launch template for wordpress
@@ -1027,9 +1029,7 @@ resource "aws_autoscaling_attachment" "asg_attachment_tooling" {
   alb_target_group_arn   = aws_lb_target_group.tooling-tgt.arn
 }
 ```
-
-
-
+</details>
 
 
 
