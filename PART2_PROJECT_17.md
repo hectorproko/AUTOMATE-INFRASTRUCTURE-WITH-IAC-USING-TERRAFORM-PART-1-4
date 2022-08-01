@@ -1271,3 +1271,5 @@ tags = {
 }
 ```
 
+So far we have a long list of files that is not bad for a start, we are going to fix this using the concepts of **modules** in [Project 18](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART3_PROJECT_18.md)  
+
