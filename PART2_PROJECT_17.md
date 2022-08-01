@@ -817,7 +817,7 @@ resource "aws_launch_template" "bastion-launch-template" {
   iam_instance_profile {
     name = aws_iam_instance_profile.ip.id
   }
-key_name = var.keypair
+  key_name = var.keypair
   placement {
     availability_zone = "random_shuffle.az_list.result"
   }
@@ -925,19 +925,19 @@ resource "aws_launch_template" "wordpress-launch-template" {
   image_id               = var.ami
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.webserver-sg.id]
-iam_instance_profile {
+  iam_instance_profile {
     name = aws_iam_instance_profile.ip.id
   }
-key_name = var.keypair
-placement {
+  key_name = var.keypair
+  placement {
     availability_zone = "random_shuffle.az_list.result"
   }
-lifecycle {
+  lifecycle {
     create_before_destroy = true
   }
-tag_specifications {
+  tag_specifications {
     resource_type = "instance"
-tags = merge(
+  tags = merge(
     var.tags,
     {
       Name = "wordpress-launch-template"
@@ -955,10 +955,10 @@ resource "aws_autoscaling_group" "wordpress-asg" {
   health_check_type         = "ELB"
   desired_capacity          = 1
   vpc_zone_identifier = [
-aws_subnet.private[0].id,
+  aws_subnet.private[0].id,
     aws_subnet.private[1].id
   ]
-launch_template {
+  launch_template {
     id      = aws_launch_template.wordpress-launch-template.id
     version = "$Latest"
   }
@@ -978,26 +978,26 @@ resource "aws_launch_template" "tooling-launch-template" {
   image_id               = var.ami
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.webserver-sg.id]
-iam_instance_profile {
+  iam_instance_profile {
     name = aws_iam_instance_profile.ip.id
   }
-key_name = var.keypair
-placement {
+  key_name = var.keypair
+  placement {
     availability_zone = "random_shuffle.az_list.result"
   }
-lifecycle {
+  lifecycle {
     create_before_destroy = true
   }
-tag_specifications {
+  tag_specifications {
     resource_type = "instance"
-tags = merge(
-    var.tags,
-    {
-      Name = "tooling-launch-template"
-    },
-  )
-}
-user_data = filebase64("${path.module}/tooling.sh")
+    tags = merge(
+      var.tags,
+      {
+        Name = "tooling-launch-template"
+      },
+    )
+  }
+  user_data = filebase64("${path.module}/tooling.sh")
 }
 # ---- Autoscaling for tooling -----
 resource "aws_autoscaling_group" "tooling-asg" {
@@ -1011,11 +1011,11 @@ resource "aws_autoscaling_group" "tooling-asg" {
     aws_subnet.private[0].id,
     aws_subnet.private[1].id
   ]
-launch_template {
+  launch_template {
     id      = aws_launch_template.tooling-launch-template.id
     version = "$Latest"
   }
-tag {
+  tag {
     key                 = "Name"
     value               = "tooling-launch-template"
     propagate_at_launch = true
