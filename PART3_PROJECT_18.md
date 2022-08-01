@@ -1,6 +1,6 @@
 # AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-3/4
 Project 18 Terraform
-
+[Link](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART3_PROJECT_18.md#update-terraform-block-to-introduce-backend-and-locking)  
 
 So far we have developed AWS Infrastructure code using Terraform and tried to run it from our local workstation.  
 Now we will explore alternative Terraform [backends](https://www.terraform.io/language/settings/backends/configuration).  
@@ -30,7 +30,7 @@ Here is our plan to Re-initialize Terraform to use S3 backend: (init terraform s
 
 
 
-[Link](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART3_PROJECT_18.md#update-terraform-block-to-introduce-backend-and-locking)  
+
 
 ### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
 
