@@ -1271,5 +1271,9 @@ tags = {
 }
 ```
 
-So far we have a long list of files that is not bad for a start, we are going to fix this using the concepts of **modules** in [Project 18](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART3_PROJECT_18.md)  
+So far we have a long list of files that is not a bad start, but we are going to fix this using the concepts of **modules** in [Project 18](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART3_PROJECT_18.md)  
+
+<!--
+Secondly, our application wont work because in out shell script that was passed into the launch some endpoints like the RDs and EFS point is needed in which they have not been created yet. So in project 19 we will use our Ansible knowledge to fix this.
+-->
 
