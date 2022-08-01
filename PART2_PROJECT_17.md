@@ -780,16 +780,14 @@ Useful Terraform Documentation, go through this documentation and understand the
 * [Launch-template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template)
 
 Create `asg-bastion-nginx.tf` and paste all the code snippet below;
-
-creating sns topic for all the auto scaling groups
 ``` bash
+#Creating SNS Topic for all the Auto Scaling Groups
 resource "aws_sns_topic" "hector-sns" {
   name = "Default_CloudWatch_Alarms_Topic"
 }
-```
 
-Creating notification for all the auto scaling groups
-``` bash
+
+#Creating notification for all the Auto Scaling Groups
 resource "aws_autoscaling_notification" "david_notifications" {
   group_names = [
     aws_autoscaling_group.bastion-asg.name,
@@ -805,39 +803,37 @@ resource "aws_autoscaling_notification" "david_notifications" {
   ]
   topic_arn = aws_sns_topic.david-sns.arn
 }
-```
 
-Launch template for Bastion**
-``` bash
+
+#Launch Template for Bastion
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names
 }
-
 
 resource "aws_launch_template" "bastion-launch-template" {
   image_id               = var.ami
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
-iam_instance_profile {
+  iam_instance_profile {
     name = aws_iam_instance_profile.ip.id
   }
 key_name = var.keypair
-placement {
+  placement {
     availability_zone = "random_shuffle.az_list.result"
   }
-lifecycle {
+  lifecycle {
     create_before_destroy = true
   }
-tag_specifications {
+  tag_specifications {
     resource_type = "instance"
-tags = merge(
-    var.tags,
-    {
-      Name = "bastion-launch-template"
-    },
-  )
+    tags = merge(
+      var.tags,
+      {
+        Name = "bastion-launch-template"
+      },
+    )
   }
-user_data = filebase64("${path.module}/bastion.sh")
+  user_data = filebase64("${path.module}/bastion.sh")
 }
 
 # ---- Autoscaling for bastion  hosts
@@ -852,7 +848,7 @@ resource "aws_autoscaling_group" "bastion-asg" {
     aws_subnet.public[0].id,
     aws_subnet.public[1].id
   ]
-launch_template {
+  launch_template {
     id      = aws_launch_template.bastion-launch-template.id
     version = "$Latest"
   }
@@ -867,26 +863,26 @@ resource "aws_launch_template" "nginx-launch-template" {
   image_id               = var.ami
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
-iam_instance_profile {
+  iam_instance_profile {
     name = aws_iam_instance_profile.ip.id
   }
-key_name =  var.keypair
-placement {
+  key_name =  var.keypair
+  placement {
     availability_zone = "random_shuffle.az_list.result"
   }
-lifecycle {
+  lifecycle {
     create_before_destroy = true
   }
-tag_specifications {
+  tag_specifications {
     resource_type = "instance"
-tags = merge(
-    var.tags,
-    {
-      Name = "nginx-launch-template"
-    },
-  )
+    tags = merge(
+      var.tags,
+      {
+        Name = "nginx-launch-template"
+      },
+    )
   }
-user_data = filebase64("${path.module}/nginx.sh")
+  user_data = filebase64("${path.module}/nginx.sh")
 }
 # ------ Autoscslaling group for reverse proxy nginx ---------
 resource "aws_autoscaling_group" "nginx-asg" {
@@ -896,15 +892,15 @@ resource "aws_autoscaling_group" "nginx-asg" {
   health_check_grace_period = 300
   health_check_type         = "ELB"
   desired_capacity          = 1
-vpc_zone_identifier = [
+  vpc_zone_identifier = [
     aws_subnet.public[0].id,
     aws_subnet.public[1].id
   ]
-launch_template {
+  launch_template {
     id      = aws_launch_template.nginx-launch-template.id
     version = "$Latest"
   }
-tag {
+  tag {
     key                 = "Name"
     value               = "nginx-launch-template"
     propagate_at_launch = true
