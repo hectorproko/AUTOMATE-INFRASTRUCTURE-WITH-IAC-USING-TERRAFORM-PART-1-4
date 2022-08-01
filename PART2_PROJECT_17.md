@@ -1053,6 +1053,10 @@ In order to create an EFS we need to create a [KMS key](https://aws.amazon.com/k
 **AWS Key Management Service (KMS)** makes it easy to create and manage cryptographic keys and control their use across a wide range of AWS services and in applications.  
 
 Creating `efs.tf`  with the following code  
+
+<details close>
+<summary>efs.tf</summary>
+
 ``` bash
 # create key from key management system
 resource "aws_kms_key" "HRA-kms" {
@@ -1137,5 +1141,4 @@ resource "aws_efs_access_point" "tooling" {
   }
 }
 ```
-
-
+</details>
