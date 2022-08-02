@@ -31,7 +31,7 @@ Steps to **Re-initialize** Terraform to use **S3 backend**: *(init terraform)*
 To get to know how lock in DynamoDB works, read the following article
 https://angelo-malatacca83.medium.com/aws-terraform-s3-and-dynamodb-backend-3b28431a76c1
 -->
-Create a file and name it `backend.tf`.  
+1. Create a file and name it `backend.tf`.  
 *(S3 Bucket should already exist from [Project 16](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART1_PROJECT_16.md))*
 
 ``` bash
@@ -53,7 +53,27 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 }
 ```
+Since **Terraform** stores secret data inside the state files. **Passwords**, and **secret keys** processed by resources are always stored in there. Hence, you must consider to always enable encryption. You can see how we achieved that with [`server_side_encryption_configuration`](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
 
+
+##### Update terraform block to introduce backend and locking
+
+2. Next, we will create a **DynamoDB** table to handle locks and perform consistency checks. Previously, locks were handled with a local file `terraform.tfstate.lock.info`. Therefore, with a cloud storage database like **DynamoDB**, anyone running Terraform against the same infrastructure can use a central location to control a situation where Terraform is running at the same time from multiple different people.
+   
+``` bash
+#Dynamo DB resource for locking and consistency checking
+resource "aws_dynamodb_table" "terraform_locks" {
+  name         = "terraform-locks"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+}
+```
+
+###### Re-initialize terraform
 
 
 
