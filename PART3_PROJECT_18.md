@@ -26,7 +26,7 @@ Steps to **Re-initialize** Terraform to use **S3 backend**: *(init terraform)*
 5. ###### Add outputs
 6. ###### terraform apply  
 
-##### Add S3 and DynamoDB resource blocks before deleting the local state file  
+#### Add S3 and DynamoDB resource blocks before deleting the local state file  
 <!--
 To get to know how lock in DynamoDB works, read the following article
 https://angelo-malatacca83.medium.com/aws-terraform-s3-and-dynamodb-backend-3b28431a76c1
@@ -56,7 +56,7 @@ resource "aws_s3_bucket" "terraform_state" {
 Since **Terraform** stores secret data inside the state files. **Passwords**, and **secret keys** processed by resources are always stored in there. Hence, you must consider to always enable encryption. You can see how we achieved that with [`server_side_encryption_configuration`](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html).
 
 
-##### Update terraform block to introduce backend and locking
+#### Update terraform block to introduce backend and locking
 
 2. Next, we will create a **DynamoDB** table to handle locks and perform consistency checks. Previously, locks were handled with a local file `terraform.tfstate.lock.info`. Therefore, with a cloud storage database like **DynamoDB**, anyone running Terraform against the same infrastructure can use a central location to control a situation where Terraform is running at the same time from multiple different people.
    
@@ -73,7 +73,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
 }
 ```
 
-###### Re-initialize terraform
+#### Re-initialize terraform
 
 
 
