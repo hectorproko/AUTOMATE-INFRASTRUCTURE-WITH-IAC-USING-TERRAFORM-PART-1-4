@@ -1,6 +1,8 @@
 # AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-3/4
 **Project 18 Terraform**
  
+### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING  
+
 So far we have developed **AWS** Infrastructure code using Terraform and tried to run it from our local workstation.  
 Now we will explore alternative **Terraform** [backends](https://www.terraform.io/language/settings/backends/configuration).  
 
@@ -162,15 +164,36 @@ hector@hector-Laptop:~/Project16-17/PBL$d
 ```
 </details>
 
-Now we can see the `.tfsate` file inside the **S3 Bucket**  
+
+#### Delete the local tfstate file and check the one in S3 bucket  
+
+Now we can see the `.tfsate` file inside the **S3 Bucket**   
 ![Markdown Logo](https://raw.githubusercontent.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/main/images/S3Bucket_tfstate.gif) 
 
 
+Before we run `terraform apply` let us add an output so that the **S3 bucket** Amazon Resource Names (**ARN**) and **DynamoDB** table name can be displayed.  
+
+Create a new file `output.tf` with the following code.
+``` bash
+output "s3_bucket_arn" {
+  value       = aws_s3_bucket.terraform_state.arn
+  description = "The ARN of the S3 bucket"
+}
+output "dynamodb_table_name" {
+  value       = aws_dynamodb_table.terraform_locks.name
+  description = "The name of the DynamoDB table"
+}
+```
+
+Now we can run `terraform apply`  
 
 
+**Isolation Of Environments:**  
+Most likely we will need to create resources for different environments, such as: dev, sit, uat, preprod, prod, etc.  
 
-
-### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
+This **separation** of environments can be achieved using one of two methods:  
+1. Terraform Workspaces  
+2. **Directory** based separation using `terraform.tfvars`  
 
 ### WHEN TO USE WORKSPACES OR DIRECTORY?
 
