@@ -74,7 +74,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
 ```
 **Terraform** expects that both **S3 bucket** and **DynamoDB** resources are already created **before** we configure the **backend**. So, let us run `terraform apply` to provision resources.
 
-3. Configure S3 Backend
+3. Configure **S3 Backend**
 ``` bash
 terraform {lear
   backend "s3" {
@@ -86,14 +86,81 @@ terraform {lear
   }
 }
 ```
-
+Now its time to **re-initialize** the **backend**. We run `terraform init` and confirm to change the backend by typing `yes`  
 
 #### Re-initialize terraform
+We run the `terraform plan` command again to get an updated list of resources, we will receive an error because the backend has changed and **Terraform** needs to start again  
+
+<details close>
+<summary>Terraform plan Output</summary>
+
+``` bash
+hector@hector-Laptop:~/Project16-17/PBL$ terraform plan
+╷
+│ Error: Backend initialization required, please run "terraform init"
+│
+│ Reason: Initial configuration of the requested backend "s3"
+│
+│ The "backend" is the interface that Terraform uses to store state,
+│ perform operations, etc. If this message is showing up, it means that the
+│ Terraform configuration you're using is using a custom configuration for
+│ the Terraform backend.
+│
+│ Changes to backend configurations require reinitialization. This allows
+│ Terraform to set up the new configuration, copy existing state, etc. Please run
+│ "terraform init" with either the "-reconfigure" or "-migrate-state" flags to
+│ use the current configuration.
+│
+│ If the change reason above is incorrect, please verify your configuration
+│ hasn't changed and try again. At this point, no changes to your existing
+│ configuration or state have been made.
+╵
+hector@hector-Laptop:~/Project16-17/PBL$
+```
+</details>
 
 
+Let’s run the `terraform init` command again, Terraform will automatically detect that you already have a state file locally and prompt you to copy it to the **S3** previously created, writing `yes`, the file will be automatically copied  
 
+<details close>
+<summary>Terraform init Output</summary>
 
+``` bash
+hector@hector-Laptop:~/Project16-17/PBL$ terraform init
 
+Initializing the backend...
+Do you want to copy existing state to the new backend?
+  Pre-existing state was found while migrating the previous "local" backend to the
+  newly configured "s3" backend. No existing state was found in the newly
+  configured "s3" backend. Do you want to copy this state to the new "s3"
+  backend? Enter "yes" to copy and "no" to start with an empty state.
+
+  Enter a value:
+  Enter a value: yes
+
+Releasing state lock. This may take a few moments...
+
+Successfully configured the backend "s3"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Reusing previous version of hashicorp/random from the dependency lock file
+- Using previously-installed hashicorp/aws v4.14.0
+- Using previously-installed hashicorp/random v3.1.3
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+hector@hector-Laptop:~/Project16-17/PBL$d
+```
+</details>
 
 ### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
 
