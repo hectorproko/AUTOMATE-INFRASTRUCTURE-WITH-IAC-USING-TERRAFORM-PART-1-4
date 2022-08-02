@@ -323,7 +323,7 @@ module "VPC" {
   public_subnets                      = [for i in range(2, 5, 2) : cidrsubnet(var.vpc_cidr, 8, i)]
 }
 ```
-We have no coded values. We either generate it (subnets) or pass variables using `var` keyword. The **values** of these variables are defined in `PBL/terraform.tfvars`
+We have no coded values. We either generate it (subnets) or pass variables using `var` keyword. The **values** of these variables are defined in [PBL/`terraform.tfvars`](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/terraform.tfvars)
 
 The VPC module defines a `source = "./modules/VPC"`  
 
