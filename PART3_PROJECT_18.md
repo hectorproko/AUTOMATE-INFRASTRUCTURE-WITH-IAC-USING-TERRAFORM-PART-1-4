@@ -304,10 +304,10 @@ Complete the rest of the codes yourself, the resulting configuration structure i
 `7 directories, 38 files`  
 </details>
 
-**Above Principles in action:**
+**Above Principles in action:**  
 I'm going to pick the creation of the VPC as an example  
 
-In our root directory `PBL` we have `main.tf` where we create the **module**  
+In our root directory `PBL` we have `main.tf` where we create the **module**
 ``` bash
 # creating VPC
 module "VPC" {
@@ -323,6 +323,28 @@ module "VPC" {
   public_subnets                      = [for i in range(2, 5, 2) : cidrsubnet(var.vpc_cidr, 8, i)]
 }
 ```
+We have no coded values. We either generate it (subnets) or pass variables using `var` keyword. The **values** of these variables are defined in `PBL/terraform.tfvars`
+
+The VPC module defines a `source = "./modules/VPC"`  
+
+There we find [`PBL/modules/VPC/main.tf`](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/main.tf) where create the resource **VPC**  
+``` bash
+# Create VPC
+resource "aws_vpc" "main" {
+  cidr_block                     = var.vpc_cidr
+  enable_dns_support             = var.enable_dns_support
+  enable_dns_hostnames           = var.enable_dns_hostnames
+  enable_classiclink             = var.enable_classiclink
+  enable_classiclink_dns_support = var.enable_classiclink_dns_support
+  tags = merge(
+    var.tags,
+    {
+      Name = format("%s-VPC", var.name)
+    },
+  )
+}
+```
+Once again we used variables, variables used within this module *(VPC)* need to be defined in its PBL/modules/VPC/[`variables.tf`](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/variables.tf)  
 
 
 
