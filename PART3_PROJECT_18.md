@@ -18,13 +18,42 @@ To solve this, we will need to configure a backend where the state file can be a
 Another useful option that is supported by **S3** backend is [**State Locking**](https://www.terraform.io/docs/language/state/locking.html) *(used to lock your state for all operations that could write state)*. This prevents others from acquiring the lock and potentially corrupting your state. State Locking feature for S3 backend is optional and requires another AWS service – [DynamoDB](https://aws.amazon.com/dynamodb/).  
 
 
-Here is our plan to Re-initialize Terraform to use S3 backend: (init terraform step)
-* ###### Add S3 and DynamoDB resource blocks before deleting the local state file
-* ###### Update terraform block to introduce backend and locking
-* ###### Re-initialize terraform
-* ###### Delete the local tfstate file and check the one in S3 bucket
-* ###### Add outputs
-* ###### terraform apply  
+Steps to **Re-initialize** Terraform to use **S3 backend**: *(init terraform)*  
+1. ###### Add S3 and DynamoDB resource blocks before deleting the local state file
+2. ###### Update terraform block to introduce backend and locking
+3. ###### Re-initialize terraform
+4. ###### Delete the local tfstate file and check the one in S3 bucket
+5. ###### Add outputs
+6. ###### terraform apply  
+
+##### Add S3 and DynamoDB resource blocks before deleting the local state file  
+<!--
+To get to know how lock in DynamoDB works, read the following article
+https://angelo-malatacca83.medium.com/aws-terraform-s3-and-dynamodb-backend-3b28431a76c1
+-->
+Create a file and name it `backend.tf`.  
+*(S3 Bucket should already exist from [Project 16](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART1_PROJECT_16.md))*
+
+``` bash
+#must give it a unique name globally
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = "hector-dev-terraform-bucket"
+  # Enable versioning so we can see the full revision history of our state files
+  versioning {
+    enabled = true
+  }
+
+  # Enable server-side encryption by default
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+}
+```
+
 
 
 
