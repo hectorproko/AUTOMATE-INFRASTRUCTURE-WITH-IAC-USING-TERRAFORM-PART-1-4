@@ -210,7 +210,7 @@ So far in Project 17 we have a single list of long files for creating all of our
 
 We are going combine resources of a similar type into **directories** within a `modules` directory  
 
- ── `modules`  
+ ├── `modules`  
     ├── `ALB`  
     ├── `Autoscaling`  
     ├── `EFS`  
