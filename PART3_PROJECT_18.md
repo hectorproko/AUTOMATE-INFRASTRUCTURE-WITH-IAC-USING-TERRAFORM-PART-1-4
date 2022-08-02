@@ -244,12 +244,8 @@ It is also recommended to configure `providers` and `backends` sections in separ
 Complete the rest of the codes yourself, the resulting configuration structure in your working directory may look like this:
 
 
-
-Pro-tips:
-	1. You can validate your codes before running terraform plan with terraform validate command. It will check if your code is syntactically valid and internally consistent.
-In order to make your configuration files more readable and follow canonical format and style – use terraform fmt command. It will apply Terraform language style conventions and format your .tf files in accordance to them
-
-
+<details close>
+<summary>Configuration Structure</summary>
 
 `hector@hector-Laptop:~/Project16-17/PBL$ tree`  
 .   
@@ -299,4 +295,10 @@ In order to make your configuration files more readable and follow canonical for
 ├── [terraform.tfvars]()  
 └── [variables.tf]()  
 
-`7 directories, 38 files`
+`7 directories, 38 files`  
+</details>
+
+
+Pro-tips:
+	1. You can validate your codes before running terraform plan with terraform validate command. It will check if your code is syntactically valid and internally consistent.
+In order to make your configuration files more readable and follow canonical format and style – use terraform fmt command. It will apply Terraform language style conventions and format your .tf files in accordance to them
