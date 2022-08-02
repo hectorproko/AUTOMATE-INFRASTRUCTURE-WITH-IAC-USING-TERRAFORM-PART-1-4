@@ -251,7 +251,7 @@ In order to make your configuration files more readable and follow canonical for
 
 
 
-`hector@hector-Laptop:~/Project16-17/PBL$ tree`
+`hector@hector-Laptop:~/Project16-17/PBL$ tree`  
 .
 ├── [backend.tf]()  
 ├── [main.tf]()  
