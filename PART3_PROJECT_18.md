@@ -211,10 +211,31 @@ So far in Project 17 we have a single list of long files for creating all of our
 We are going combine resources of a similar type into **directories** within a `modules` directory  
 
 ├── `modules`  
-    ├── `ALB` *For Application Load balancer and similar resources*  
-    ├── `Autoscaling` *For Autoscaling and launch template resources*    
-    ├── `EFS` *For Elastic file system resources*      
-    ├── `RDS` *For Databases resources*      
+    ├── `ALB` *for Application Load balancer and similar resources*  
+    ├── `Autoscaling` *for Autoscaling and launch template resources*    
+    ├── `EFS` *for Elastic file system resources*      
+    ├── `RDS` *for Databases resources*      
     ├── `Security` *for creating security group resources*      
-    └── `VPC` *For VPC and networking resources such as subnets, roles, etc..*      
+    └── `VPC` *for VPC and networking resources such as subnets, roles, etc..*      
+
+
+Each module should contain the following files:  
+* `<resource_name>.tf` *file(s) with resources blocks*
+* `outputs.tf` *optional, when we need to refer outputs from any of these resources in our root module*
+* `variables.tf` *as we learned before - it is a good practice not to hard code the values and use variables*  
+
+
+It is also recommended to configure `providers` and `backends` sections in separate files but should be placed in the root module.  
+├── `backend.tf`  
+├── `providers.tf`  
+├── main.tf  
+├── modules  
+    ├── ALB  
+    ├── Autoscaling  
+    ├── EFS  
+    ├── RDS  
+    ├── Security  
+    └── VPC  
+
+
 ### COMPLETE THE TERRAFORM CONFIGURATION
