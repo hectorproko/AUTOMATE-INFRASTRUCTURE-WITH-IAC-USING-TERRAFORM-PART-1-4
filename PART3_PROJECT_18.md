@@ -346,7 +346,7 @@ resource "aws_vpc" "main" {
 ```
 Once again we used **variables**, variables used within this **module** *(VPC)* need to be defined in its [PBL/modules/VPC/`variables.tf`](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/variables.tf)  
 
-
+Once again the values of these variables originate from [PBL/`terraform.tfvars`](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/terraform.tfvars)  
 
 **Pro-tips:**  
 1. You can validate your codes before running `terraform plan` with `terraform validate` command. It will check if your code is syntactically valid and internally consistent.  
