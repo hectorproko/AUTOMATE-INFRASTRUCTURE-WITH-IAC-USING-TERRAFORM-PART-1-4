@@ -212,9 +212,9 @@ We are going combine resources of a similar type into **directories** within a `
 
 ├── `modules`  
     ├── `ALB` *For Application Load balancer and similar resources*  
-    ├── `Autoscaling`  
-    ├── `EFS`  
-    ├── `RDS`  
-    ├── `Security`  
-    └── `VPC`  
+    ├── `Autoscaling` *For Autoscaling and launch template resources*    
+    ├── `EFS` *For Elastic file system resources*      
+    ├── `RDS` *For Databases resources*      
+    ├── `Security` *for creating security group resources*      
+    └── `VPC` *For VPC and networking resources such as subnets, roles, etc..*      
 ### COMPLETE THE TERRAFORM CONFIGURATION
