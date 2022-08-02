@@ -344,7 +344,7 @@ resource "aws_vpc" "main" {
   )
 }
 ```
-Once again we used variables, variables used within this module *(VPC)* need to be defined in its PBL/modules/VPC/[`variables.tf`](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/variables.tf)  
+Once again we used **variables**, variables used within this **module** *(VPC)* need to be defined in its **PBL/modules/VPC/**[`variables.tf`](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/variables.tf)  
 
 
 
