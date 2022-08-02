@@ -212,7 +212,7 @@ Modules serve as containers that allow to logically group Terraform code for sim
 
 Module is just a collection of `.tf` and/or` .tf.json` files in a directory.  
 
-So far in Project 17 we have a single list of long files for creating all of our resources
+So far in [Project 17](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PART2_PROJECT_17.md) we have a single list of long files for creating all of our resources  
 
 We are going combine resources of a similar type into **directories** within a `modules` directory  
 
@@ -303,6 +303,27 @@ Complete the rest of the codes yourself, the resulting configuration structure i
 
 `7 directories, 38 files`  
 </details>
+
+**Above Principles in action:**
+I'm going to pick the creation of the VPC as an example  
+
+In our root directory `PBL` we have `main.tf` where we create the **module**  
+``` bash
+# creating VPC
+module "VPC" {
+  source                              = "./modules/VPC"
+  region                              = var.region
+  vpc_cidr                            = var.vpc_cidr
+  enable_dns_support                  = var.enable_dns_support
+  enable_dns_hostnames                = var.enable_dns_hostnames
+  enable_classiclink                  = var.enable_classiclink
+  preferred_number_of_public_subnets  = var.preferred_number_of_public_subnets
+  preferred_number_of_private_subnets = var.preferred_number_of_private_subnets
+  private_subnets                     = [for i in range(1, 8, 2) : cidrsubnet(var.vpc_cidr, 8, i)]
+  public_subnets                      = [for i in range(2, 5, 2) : cidrsubnet(var.vpc_cidr, 8, i)]
+}
+```
+
 
 
 **Pro-tips:**  
