@@ -239,3 +239,64 @@ It is also recommended to configure `providers` and `backends` sections in separ
 
 
 ### COMPLETE THE TERRAFORM CONFIGURATION
+
+
+Complete the rest of the codes yourself, the resulting configuration structure in your working directory may look like this:
+
+
+
+Pro-tips:
+	1. You can validate your codes before running terraform plan with terraform validate command. It will check if your code is syntactically valid and internally consistent.
+In order to make your configuration files more readable and follow canonical format and style – use terraform fmt command. It will apply Terraform language style conventions and format your .tf files in accordance to them
+
+
+
+`hector@hector-Laptop:~/Project16-17/PBL$ tree`
+.
+├── [backend.tf]()  
+├── [main.tf]()  
+├── [modules]()  
+│   ├── [ALB]()  
+│   │   ├── [alb.tf]()  
+│   │   ├── [cert.tf]()  
+│   │   ├── [output.tf]()  
+│   │   └── [variables.tf]()  
+│   ├── [Autoscaling]()  
+│   │   ├── [asg-bastion-nginx.tf]()  
+│   │   ├── [asg-wordpress-tooling.tf]()  
+│   │   ├── [bastion.sh]()  
+│   │   ├── [lt-bastion-nginx.tf]()  
+│   │   ├── [lt-tooling-wp.tf]()  
+│   │   ├── [nginx.sh]()  
+│   │   ├── [tooling.sh]()  
+│   │   ├── [variables.tf]()  
+│   │   └── [wordpress.sh]()  
+│   ├── [EFS]()  
+│   │   ├── [efs.tf]()  
+│   │   ├── [output.tf]()  
+│   │   └── [variables.tf]()  
+│   ├── [RDS]()  
+│   │   ├── [output.tf]()  
+│   │   ├── [rds.tf]()  
+│   │   └── [variables.tf]()  
+│   ├── [Security]()  
+│   │   ├── [main.tf]()  
+│   │   ├── [outputs.tf]()  
+│   │   ├── [security.tf]()  
+│   │   ├── [sg-rule.tf]()  
+│   │   └── [variables.tf]()  
+│   └── [VPC]()  
+│       ├── [internet_gateway.tf]()  
+│       ├── [main.tf]()  
+│       ├── [natgateway.tf]()  
+│       ├── [outputs.tf]()  
+│       ├── [roles.tf]()  
+│       ├── [route_tables.tf]()  
+│       └── [variables.tf]()  
+├── [providers.tf]()  
+├── [terraform.tfstate]()  
+├── [terraform.tfstate.backup]()  
+├── [terraform.tfvars]()  
+└── [variables.tf]()  
+
+`7 directories, 38 files`
