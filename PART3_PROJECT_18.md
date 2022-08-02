@@ -195,8 +195,26 @@ This **separation** of environments can be achieved using one of two methods:
 1. Terraform Workspaces  
 2. **Directory** based separation using `terraform.tfvars`  
 
-### WHEN TO USE WORKSPACES OR DIRECTORY?
+<!-- ### WHEN TO USE WORKSPACES OR DIRECTORY? -->
+
 
 ### REFACTOR YOUR PROJECT USING MODULES
 
+It is difficult to navigate through all the Terraform blocks if they are all written in a single long `.tf `file. We must strive to produce reusable and comprehensive **IaC** code structure, and one of the tool that Terraform provides out of the box is [**Modules**](https://www.terraform.io/docs/language/modules/index.html).  
+
+Modules serve as containers that allow to logically group Terraform code for similar resources in the same domain *(e.g., Compute, Networking, AMI, etc)*. One **root module** can call other **child modules** and insert their configurations when applying Terraform config. This concept makes your code structure neater, and it allows different team members to work on different parts of configuration at the same time. We can also create and publish out modules to [Terraform Registry](https://registry.terraform.io/browse/modules) for others to use and use someone’s modules in your projects.
+
+Module is just a collection of `.tf` and/or` .tf.json` files in a directory.  
+
+So far in Project 17 we have a single list of long files for creating all of our resources
+
+We are going combine resources of a similar type into **directories** within a `modules` directory  
+
+ ── `modules`  
+    ├── `ALB`  
+    ├── `Autoscaling`  
+    ├── `EFS`  
+    ├── `RDS`  
+    ├── `Security`  
+    └── `VPC`  
 ### COMPLETE THE TERRAFORM CONFIGURATION
