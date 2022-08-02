@@ -1,3 +1,9 @@
+
+<!--
+For reference
+https://github.com/darey-devops/PBL-project-18.git
+There are some .sh file that are empty
+-->
 # AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-3/4
 **Project 18 Terraform**
  
@@ -249,56 +255,57 @@ Complete the rest of the codes yourself, the resulting configuration structure i
 
 `hector@hector-Laptop:~/Project16-17/PBL$ tree`  
 .   
-├── [backend.tf]()  
-├── [main.tf]()  
-├── [modules]()  
-│   ├── [ALB]()  
-│   │   ├── [alb.tf]()  
-│   │   ├── [cert.tf]()  
-│   │   ├── [output.tf]()  
-│   │   └── [variables.tf]()  
-│   ├── [Autoscaling]()  
-│   │   ├── [asg-bastion-nginx.tf]()  
-│   │   ├── [asg-wordpress-tooling.tf]()  
-│   │   ├── [bastion.sh]()  
-│   │   ├── [lt-bastion-nginx.tf]()  
-│   │   ├── [lt-tooling-wp.tf]()  
-│   │   ├── [nginx.sh]()  
-│   │   ├── [tooling.sh]()  
-│   │   ├── [variables.tf]()  
-│   │   └── [wordpress.sh]()  
-│   ├── [EFS]()  
-│   │   ├── [efs.tf]()  
-│   │   ├── [output.tf]()  
-│   │   └── [variables.tf]()  
-│   ├── [RDS]()  
+├── [backend.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/backend.tf)  
+├── [main.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/main.tf)  
+├── [modules](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules)  
+│   ├── [ALB](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/tree/main/PBL/modules/ALB)  
+│   │   ├── [alb.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/ALB/alb.tf)  
+│   │   ├── [cert.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/ALB/cert.tf)  
+│   │   ├── [output.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/ALB/output.tf)  
+│   │   └── [variables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/ALB/variables.tf)  
+│   ├── [Autoscaling](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/tree/main/PBL/modules/Autoscaling)  
+│   │   ├── [asg-bastion-nginx.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/asg-bastion-nginx.tf)  
+│   │   ├── [asg-wordpress-tooling.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/asg-wordpress-tooling.tf)  
+│   │   ├── [bastion.sh](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/bastion.sh)  
+│   │   ├── [lt-bastion-nginx.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/lt-bastion-nginx.tf)  
+│   │   ├── [lt-tooling-wp.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/lt-tooling-wp.tf)  
+│   │   ├── [nginx.sh](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/nginx.sh)  
+│   │   ├── [tooling.sh](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/tooling.sh)  
+│   │   ├── [variables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/variables.tf)  
+│   │   └── [wordpress.sh](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Autoscaling/wordpress.sh)  
+│   ├── [EFS](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/tree/main/PBL/modules/EFS)  
+│   │   ├── [efs.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/EFS/efs.tf)  
+│   │   ├── [output.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/EFS/output.tf)  
+│   │   └── [variables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/EFS/variables.tf)  
+│   ├── [RDS](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/tree/main/PBL/modules/RDS)  
 │   │   ├── [output.tf]()  
 │   │   ├── [rds.tf]()  
 │   │   └── [variables.tf]()  
-│   ├── [Security]()  
-│   │   ├── [main.tf]()  
-│   │   ├── [outputs.tf]()  
-│   │   ├── [security.tf]()  
-│   │   ├── [sg-rule.tf]()  
-│   │   └── [variables.tf]()  
-│   └── [VPC]()  
-│       ├── [internet_gateway.tf]()  
-│       ├── [main.tf]()  
-│       ├── [natgateway.tf]()  
-│       ├── [outputs.tf]()  
-│       ├── [roles.tf]()  
-│       ├── [route_tables.tf]()  
-│       └── [variables.tf]()  
-├── [providers.tf]()  
-├── [terraform.tfstate]()  
-├── [terraform.tfstate.backup]()  
-├── [terraform.tfvars]()  
-└── [variables.tf]()  
+│   ├── [Security](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/tree/main/PBL/modules/Security)  
+│   │   ├── [main.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Security/main.tf)  
+│   │   ├── [outputs.tf]([)](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Security/outputs.tf)  
+│   │   ├── [security.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Security/security.tf)  
+│   │   ├── [sg-rule.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Security/sg-rule.tf)  
+│   │   └── [variables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/Security/variables.tf)  
+│   └── [VPC](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/tree/main/PBL/modules/VPC)  
+│       ├── [internet_gateway.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/internet_gateway.tf)  
+│       ├── [main.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/main.tf)  
+│       ├── [natgateway.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/natgateway.tf)  
+│       ├── [outputs.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/outputs.tf)  
+│       ├── [roles.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/roles.tf)  
+│       ├── [route_tables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/route_tables.tf)  
+│       └── [variables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/modules/VPC/variables.tf)  
+├── [providers.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/providers.tf)  
+├── terraform.tfstate    
+├── terraform.tfstate.backup  
+├── [terraform.tfvars](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/terraform.tfvars)  
+└── [variables.tf](https://github.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/blob/main/PBL/variables.tf)  
 
 `7 directories, 38 files`  
 </details>
 
 
-Pro-tips:
-	1. You can validate your codes before running terraform plan with terraform validate command. It will check if your code is syntactically valid and internally consistent.
-In order to make your configuration files more readable and follow canonical format and style – use terraform fmt command. It will apply Terraform language style conventions and format your .tf files in accordance to them
+**Pro-tips:**  
+1. You can validate your codes before running `terraform plan` with `terraform validate` command. It will check if your code is syntactically valid and internally consistent.  
+2. In order to make your configuration files more readable and follow canonical format and style – use `terraform fmt` command. It will apply Terraform language style conventions and format your `.tf `files in accordance to them  
+
