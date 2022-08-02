@@ -162,6 +162,12 @@ hector@hector-Laptop:~/Project16-17/PBL$d
 ```
 </details>
 
+Now we can see the `.tfsate` file inside the **S3 Bucket**  
+
+![logo](https://raw.githubusercontent.com/hectorproko/AUTOMATE-INFRASTRUCTURE-WITH-IAC-USING-TERRAFORM-PART-1-to-4/main/images/S3Bucket_tfstate.gif)
+
+
+
 ### AUTOMATE INFRASTRUCTURE WITH IAC USING TERRAFORM. PART 3 – REFACTORING
 
 ### WHEN TO USE WORKSPACES OR DIRECTORY?
