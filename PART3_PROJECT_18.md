@@ -84,7 +84,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
 
 3. Configure **S3 Backend**
 ``` bash
-terraform {lear
+terraform {
   backend "s3" {
     bucket         = "hector-dev-terraform-bucket"
     key            = "global/s3/terraform.tfstate"
